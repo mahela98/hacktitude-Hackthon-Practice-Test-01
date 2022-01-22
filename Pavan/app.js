@@ -4,7 +4,7 @@ const bodyParser = require('body-parser');
 const mysql = require('mysql');
 const e = require('express');
 
-
+//hello world
 
 require('dotenv').config();
 
@@ -13,7 +13,7 @@ const port = process.env.PORT || 5000;
 
 //create DataBase connection
 const connection = mysql.createConnection({
-    host: 'localhost',
+    host: process.env.HOST,
     user: 'root',
     password: '',
     database: 'node_crud_test'
@@ -45,8 +45,7 @@ app.get('/', (req, res) => {
         else{
             res.render('index', { title: 'Home',users: rows});
         }
-    })
-    
+    }) 
 });
 
 app.get('/add-new-user', (req,res) => {
@@ -82,7 +81,7 @@ app.get('/edit/:id', (req, res) => {
 app.post('/update', (req, res) => {
     
     let sql = "UPDATE users SET name = '"+req.body.name+"', email = '"+req.body.email+"', phone_no = '"+req.body.phone_no+"' WHERE id='"+req.body.id+"' "; 
-    connection.query(sql, (err, result) => {
+    connection.query(sql, (err) => {
         if(err){
             console.log(err);
         }
@@ -105,7 +104,8 @@ app.get('/delete/:id', (req, res) => {
     })
 })
 
-//listen Port
+//listen Port+++
+
 app.listen(port, () => {
     console.log(`Server started at http://localhost:${port}`);
 })
